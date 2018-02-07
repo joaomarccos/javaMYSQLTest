@@ -1,4 +1,6 @@
-CREATE TABLE IF NOT EXISTS t_logs(
+DROP TABLE IF EXISTS t_logs;
+
+CREATE TABLE t_logs(
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     dt DATETIME,
     ip VARCHAR(20),
@@ -6,3 +8,5 @@ CREATE TABLE IF NOT EXISTS t_logs(
     status VARCHAR(20),
     user_agent VARCHAR(255)
 );
+
+create index idx_date on t_logs (dt);
