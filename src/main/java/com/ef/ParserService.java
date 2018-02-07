@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Component
@@ -33,8 +34,11 @@ public class ParserService {
     }
 
     public void store(Path path) throws IOException {
+        long initTime = System.currentTimeMillis();
+        System.out.println("Loading data into database");
         List<LogLine> data = linesObjFromFile(path);
         logRepository.insert(data);
+        System.out.printf("Loaded %d records in %d seconds!\n\n%n", data.size(), TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - initTime));
     }
 
     public List<String> find(String dateParam, String durationParam, String thresholdParam) throws IllegalAccessException {
