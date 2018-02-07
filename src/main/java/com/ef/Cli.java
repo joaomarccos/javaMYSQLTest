@@ -36,7 +36,7 @@ public class Cli {
                     service.store(Paths.get(params.get(ACCESS_LOG)));
                 }
 
-                System.out.print("Result: " + service.find(
+                System.out.println("Result: " + service.find(
                         params.get(START_DATE),
                         params.get(DURATION),
                         params.get(THRESHOLD)
