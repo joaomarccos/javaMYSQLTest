@@ -1,7 +1,6 @@
 package com.ef;
 
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,28 +29,24 @@ public class Cli {
     public void init(String... args) {
         buildParams(args);
 
-
-
-
         if (isDefined(START_DATE, DURATION, THRESHOLD)) {
             try {
 
                 if (params.containsKey(ACCESS_LOG)) {
-                    try {
-                        service.store(Paths.get(params.get(ACCESS_LOG)));
-                    } catch (IOException e) {
-                        System.out.println("log file not found.");
-                    }
+                    service.store(Paths.get(params.get(ACCESS_LOG)));
                 }
 
-                service.find(
+                System.out.print("Result: " + service.find(
                         params.get(START_DATE),
                         params.get(DURATION),
                         params.get(THRESHOLD)
-                ).forEach(System.out::println);
+                ).stream().collect(Collectors.joining(", ")));
+
 
             } catch (IllegalAccessException e) {
                 System.out.println(e.getMessage());
+            } catch (IOException e) {
+                System.out.println("log file not found.");
             }
         } else {
             System.out.println("Required parameters not given");
