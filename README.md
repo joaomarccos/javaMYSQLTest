@@ -1,4 +1,4 @@
-# javaMYSQLTest
+# Log Parser
 
 
 ## Requirements
