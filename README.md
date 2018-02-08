@@ -21,4 +21,4 @@ Two versions are avaible. See tags bellow
 
 v1.0.0 - Simple implementation
 
-v2-spring-batch - Sofisticated implementation using spring batch
+v2.0.0 - Sofisticated implementation using spring batch
