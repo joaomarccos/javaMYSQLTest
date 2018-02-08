@@ -1,6 +1,5 @@
 package com.ef;
 
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,7 +10,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class LogLineRepository {
@@ -54,17 +52,5 @@ public class LogLineRepository {
         });
 
         return results;
-    }
-
-    public void insert(final List<LogLine> lines) {
-        Lists.partition(lines, 1000).parallelStream().forEach(lineSet -> {
-            StringBuilder partialSql = new StringBuilder("insert into t_logs (dt, ip, request, status, user_agent) values ");
-            String sqlGroup = lineSet.stream().map(line -> new StringBuilder().append("('").append(line.getDate()).append("','").append(line.getIp()).append("','").append(line.getRequest()).append("','").append(line.getStatus()).append("','").append(line.getUserAgent()).append("')")
-                    .toString()).collect(Collectors.joining(","));
-
-            String sql = partialSql.append(sqlGroup).append(";").toString();
-
-            jdbcTemplate.batchUpdate(sql);
-        });
     }
 }
