@@ -5,7 +5,7 @@
 
 - Maven >= 3
 - JDK 1.8
-- MySQL (port 3306 - to change this view application.properties file)
+- MySQL (to change the port and the default db name change the application.properties file)
 
 
 ## Run from command line 
